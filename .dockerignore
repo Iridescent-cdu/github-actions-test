@@ -1,0 +1,11 @@
+.md
+!REAMED.md
+node_modules/
+[a-c].txt
+.git/
+.DS_Store
+.vscode/
+.dockerignore
+.eslintignore
+.eslintrc
+.prettierrc
