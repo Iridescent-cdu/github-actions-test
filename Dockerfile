@@ -29,8 +29,9 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # 复制本地工作区的nginx.conf 文件
 COPY nginx.conf  /etc/nginx/conf.d/default.conf 
 
-# 映射80端口至宿主机3000端口
+# 暴露80端口和443端口 
 EXPOSE 80
+EXPOSE 443
 
 # 创建nginx配置目录存放ssl文件并启动nginx
 ENTRYPOINT ["sh", "-c","mkdir -p /opt/docker/nginx && nginx -g 'daemon off;'"]
