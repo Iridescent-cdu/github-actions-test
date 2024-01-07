@@ -14,7 +14,7 @@ jobs:
       - name: checkout git repository
         uses: actions/checkout@v4
       - name: build the docker image
-        run: docker build --tag ${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}.
+        run: docker build --tag ${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }} .
       - name: login to aliyun docker repository
         run: docker login --username=${{ secrets.ALIYUN_USERNAME }} --password=${{ secrets.ALIYUN_PASSWORD }} ${{ secrets.ALIYUN_REGISTRY }}
       - name: push image to aliyun docker repository
