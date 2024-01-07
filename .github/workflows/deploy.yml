@@ -1,0 +1,30 @@
+name: deploy
+run-name: github-actions-test is running deploy stage 🚀
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  Run-Project_Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout git repository
+        uses: actions/checkout@v4
+      - name: build the docker image
+        run: docker build --tag ${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}.
+      - name: login to aliyun docker repository
+        run: docker login --username=${{ secrets.ALIYUN_USERNAME }} --password=${{ secrets.ALIYUN_PASSWORD }} ${{ secrets.ALIYUN_REGISTRY }}
+      - name: push image to aliyun docker repository
+        run: docker push ${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
+      - name: update docker image and restart remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            ./opt/docker/config/update.sh
