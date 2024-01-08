@@ -1,0 +1,22 @@
+name: Multi-Environment-Test
+run-name:  multi-environment-test is running  
+on: 
+  push:
+    branches:
+      - master
+env:
+  ENVIRONMENT: master       
+jobs:
+  Run-Multi-Environment-Test:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+    env:
+      ENVIRONMENT: master 
+    steps:
+      - name: Echo Environment Variables
+        run: |
+         echo "${{ github.ref_name }}"
+         echo "${{ env.ENVIRONMENT }}"
+         echo "${{ vars.BRANCH_NAME }}"
+

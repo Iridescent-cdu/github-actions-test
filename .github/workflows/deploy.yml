@@ -1,4 +1,4 @@
-name: deploy
+name: Deploy
 run-name: github-actions-test is running deploy stage 🚀
 on:
   push:
